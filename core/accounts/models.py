@@ -5,6 +5,8 @@ from django.contrib.auth.models import (
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
+import datetime
 # Create your models here.
 
 '''
@@ -39,16 +41,31 @@ define CustomUser model for app with a unique email field and usermanager
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=250,unique=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    #is_verified = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    expir_date = models.DateTimeField(blank=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
+    # set email as a username field
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    # set user manager
     objects = UserManager()
+
+    def is_expired(self):
+        return self.expir_date < timezone.now()
+    def save(self, *args, **kwargs):
+        if not self.expir_date:
+            self.expir_date = self.created_date + datetime.timedelta(days=30)
+        if self.is_expired():
+            self.is_active = False
+        else:
+            self.is_active = True
+        
+        super().save(*args, **kwargs)
+    # return user email as a user model name 
     def __str__(self):
         return self.email
 
@@ -58,13 +75,29 @@ user profile model
 '''
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=250)
-    last_name = models.CharField(max_length=250)
     image = models.ImageField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    # chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+    # game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    ranks = (
+        ('bronze', 'Bronze'),
+        ('silver', 'Silver'),
+        ('gold', 'Gold'),
+        ('platinum', 'Platinum'),
+        ('diamond', 'Diamond'),
+    )
+    rank = models.CharField(default = ranks[0] , max_length=255, choices=ranks)
+    xp = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-
+    
+    def rank_calculate(self):
+        ranks = ['bronze','silver','gold','platinum','diamond']
+        if self.xp >= 10000 and self.rank != 'diamond':
+            self.xp = self.xp - 10000
+            self.rank = ranks[ranks.index(self.rank) + 1]
+    def save(self, *args, **kwargs):
+        self.rank_calculate()  # Call rank_calculate before saving
+        super().save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.email} Profile'
 

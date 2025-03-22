@@ -29,7 +29,7 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('important dates',{
             "fields":(
-                'last_login',
+                'last_login','expir_date'
             )
         }),
     )
