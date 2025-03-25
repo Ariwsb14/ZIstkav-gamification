@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h1>Welcome to the game</h1>
+        <p>You have {{ number_of_letters }} letters to write</p>
+        {% for letter in all_letters %}
+            <p>{{ letter }}</p>
+        {% endfor %}
+    </body>
+</html>

@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets =(
         ('Create User',{
             "fields":(
-                'email','password1','password2','is_staff','is_active','is_superuser'
+                'email','password1','password2','is_staff','is_active','is_superuser','expir_date'
             )
         }),
     )

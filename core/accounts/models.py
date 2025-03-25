@@ -7,6 +7,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 import datetime
+from game.models import Chapter, Game
+import os
+from pathlib import Path
 # Create your models here.
 
 '''
@@ -58,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.expir_date < timezone.now()
     def save(self, *args, **kwargs):
         if not self.expir_date:
-            self.expir_date = self.created_date + datetime.timedelta(days=30)
+            self.expir_date = timezone.now() + timezone.timedelta(days=30)
         if self.is_expired():
             self.is_active = False
         else:
@@ -76,8 +79,8 @@ user profile model
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
-    # chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
-    # game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE , null=True, blank=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE , null=True, blank=True)
     ranks = (
         ('bronze', 'Bronze'),
         ('silver', 'Silver'),
@@ -107,5 +110,12 @@ signal to create profile when user is created
 '''
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    BASE_DIR = Path(__file__).resolve().parent.parent
     if created:
         Profile.objects.create(user=instance)
+        user_path = Path(BASE_DIR, 'md', instance.email)
+        user_path.mkdir(parents=True, exist_ok=True)
+        journal_path = user_path / 'journal.md'
+        letter_path = user_path / 'letter.md'
+        journal_path.touch()
+        letter_path.touch()
