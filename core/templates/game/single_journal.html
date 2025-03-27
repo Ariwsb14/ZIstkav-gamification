@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <h1>{{ journal_title }}</h1>
+        <p>{{ journal }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <input name="text"> 
+            <button type="submit">submit your journals</button>
+
+        </form>
+    </body>
+</html>

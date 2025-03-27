@@ -5,5 +5,10 @@
         {% for letter in all_letters %}
             <p>{{ letter }}</p>
         {% endfor %}
+        <p>You have {{ number_of_journals }} journals to write</p>
+        {% for journal in all_journals %}
+            <p>{{ journal }}</p>
+        {% endfor %}
+        
     </body>
 </html>
