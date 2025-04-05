@@ -3,6 +3,8 @@ from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
+import os
+from pathlib import Path
 # Create your views here.
 
 class LettersView(View,LoginRequiredMixin):
@@ -123,4 +125,21 @@ class SingleJournalView(View):
         file.writelines(lines)
         file.close()
         return redirect(reverse('game:letters'))
-    
+
+class FileLettersView(View):
+    def get(self,request):
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        user = request.user
+        if not user.is_authenticated:
+            return redirect(reverse('accounts:login'))
+        letters_path = Path(BASE_DIR,'md', user.email,'letters')
+        letters_count = len([f for f in os.listdir(letters_path) if os.path.isfile(os.path.join(letters_path, f))])
+        letters = os.listdir(letters_path)
+        for i in range(len(letters)):
+            letters[i] = letters[i][:-3]
+        
+            
+        context = {'letters_count':letters_count , 'letters':letters}
+        return render(request, 'game/index.html', context)
+        
+             

@@ -112,10 +112,21 @@ signal to create profile when user is created
 def create_user_profile(sender, instance, created, **kwargs):
     BASE_DIR = Path(__file__).resolve().parent.parent
     if created:
+        # making profile for created user
         Profile.objects.create(user=instance)
+        # making a dir for each user in md forlder(with users email)
         user_path = Path(BASE_DIR, 'md', instance.email)
         user_path.mkdir(parents=True, exist_ok=True)
+        # making journals dir for user
+        journals_path = Path(BASE_DIR,'md', instance.email,'journals')
+        journals_path.mkdir(parents=True, exist_ok=True)
+        #making letters dir for user
+        letters_path = Path(BASE_DIR,'md', instance.email,'letters')
+        letters_path.mkdir(parents=True, exist_ok=True)
+        
+        '''
         journal_path = user_path / 'journal.md'
         letter_path = user_path / 'letter.md'
         journal_path.touch()
         letter_path.touch()
+        '''

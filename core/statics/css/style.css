@@ -1,0 +1,599 @@
+/* Base Styles */
+:root {
+    --primary: #9b4433;
+    --primary-light: rgba(155, 68, 51, 0.8);
+    --primary-lighter: rgba(155, 68, 51, 0.1);
+    --secondary: #ece0c6;
+    --secondary-dark: #e5d6b8;
+    --text-primary: #9b4433;
+    --text-secondary: rgba(155, 68, 51, 0.7);
+    --text-muted: rgba(155, 68, 51, 0.5);
+    --border-color: rgba(155, 68, 51, 0.1);
+    --white: #ffffff;
+    --radius: 0.8rem;
+  }
+  @font-face {
+    font-family: 'shabnam-bold';
+    src: url(../fonts/Shabnam-Bold.ttf);
+    font-style: normal;
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'shabnam';
+    src: url(../fonts/Shabnam.ttf);
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'shabnam-medium';
+    src: url(../fonts/Shabnam-Medium.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'shabnam-light';
+    src: url(../fonts/Shabnam-Light.ttf);
+    font-style: normal;
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: 'shabnam-thin';
+    src: url(../fonts/Shabnam-Thin.ttf);
+    font-style: normal;
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: 'shabnam-digits';
+    src: url(../fonts/digits/Shabnam-Medium-FD.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'shabnam', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  h1, h2, h3, h4 {
+    font-family: 'shabnam-medium';
+    line-height: 1.2;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    font-family: 'shabnam';
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  a {
+    font-family: 'shabnam-medium';
+    font-size: 17px;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .btn-large {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Navbar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    z-index: 50;
+    padding: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .logo-text {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .user-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .xp-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .xp-points {
+    font-family: 'shabnam-digits';
+    padding: 0.25rem 0.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .rank-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+  }
+  
+  .user-avatar {
+    height: 2.25rem;
+    width: 2.25rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  /* Main Content */
+  main {
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  section {
+    margin-bottom: 5rem;
+    padding: 0 1rem;
+  }
+  
+  .hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .first-page-title {
+    padding-top: 30px;
+  }
+  /* Progress Indicator */
+  .progress-indicator {
+    max-width: 35rem;
+    margin: 0 auto 4rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+  .progress-percent {
+    font-family: 'shabnam-digits';
+  }
+  .progress-bar {
+    height: 0.5rem;
+    background-color: var(--secondary);
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: 9999px;
+    transition: width 1s ease-in-out;
+  }
+  
+  .progress-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+  
+  /* Levels Grid */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+  
+  .level-card {
+    padding: 1.5rem;
+    margin: 25px;
+    border-radius: var(--radius);
+    text-align: center;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+  
+  .level-card.active {
+    border: 2px solid var(--primary);
+  }
+  
+  .level-card.locked {
+    opacity: 0.6;
+  }
+  
+  .level-number {
+    font-family: 'shabnam-digits';
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  .level-card.completed .level-number {
+    background-color: var(--primary-lighter);
+  }
+  
+  .level-card.active .level-number {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  
+  .level-card.locked .level-number {
+    background-color: var(--secondary);
+    color: var(--text-muted);
+  }
+  
+  .level-card h3 {
+    margin-bottom: 0.25rem;
+  }
+  
+  .level-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Rank Section */
+  .rank-section {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+  
+  .rank-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .current-rank {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 20px;
+    margin-top: -10px;
+  }
+  
+  .current-rank .rank-icon {
+    height: 4rem;
+    width: 4rem;
+    background-color: var(--primary-lighter);
+  }
+  
+  .current-rank h3 {
+    margin-bottom: 0.25rem;
+  }
+  
+  .current-rank p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  
+  .next-rank {
+    width: 100%;
+  }
+  
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .xp-info {
+    font-family: 'shabnam-digits';
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+  
+  .all-ranks {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .all-ranks h4 {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    position: relative;
+    right: -1050px;
+  }
+  
+  .ranks-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+    right: -560px;
+  }
+  
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+  }
+  
+  .rank-item.active {
+    font-weight: 500;
+  }
+  
+  .rank-item.locked {
+    opacity: 0.5;
+  }
+  
+  .rank-item .rank-icon {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  /* Achievements Section */
+  .achievements-section {
+    text-align: center;
+  }
+  
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.25rem;
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+  
+  .achievement-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    text-align: left;
+    position: relative;
+  }
+  
+  .achievement-card.locked {
+    opacity: 0.5;
+  }
+  
+  .achievement-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+  
+  .achievement-card.locked .achievement-icon {
+    background-color: var(--secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+  
+  .achievement-content h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  .achievement-content p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .xp-rank {
+    font-family: 'shabnam-digits';
+  }
+  .locked-badge {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    color: var(--text-secondary);
+  }
+  
+  /* Action Button */
+  .action-button {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  /* Media Queries */
+  @media (min-width: 640px) {
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      position: relative;
+      padding: 0.5rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+    
+    .achievements-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .levels-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .rank-progress {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .next-rank {
+      width: 50%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .levels-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
