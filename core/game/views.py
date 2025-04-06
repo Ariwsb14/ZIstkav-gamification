@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 import os
 from pathlib import Path
+from markdown2 import Markdown
 # Create your views here.
 
 class LettersView(View,LoginRequiredMixin):
@@ -136,10 +137,71 @@ class FileLettersView(View):
         letters_count = len([f for f in os.listdir(letters_path) if os.path.isfile(os.path.join(letters_path, f))])
         letters = os.listdir(letters_path)
         for i in range(len(letters)):
-            letters[i] = letters[i][:-3]
-        
-            
+            letters[i] = letters[i][2:-3]
+
         context = {'letters_count':letters_count , 'letters':letters}
         return render(request, 'game/index.html', context)
+
+class FileSingleLetterView(View):
+    def get(self, request, pk):
+        user = request.user
+        if not user.is_authenticated:
+            return redirect(reverse('accounts:login'))
+            
+        markdowner = Markdown(extras=[
+            'fenced-code-blocks',
+            'tables',
+            'header-ids',
+            'break-on-newline',
+            'task_list',
+            'footnotes'
+        ])
         
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        letters_path = Path(BASE_DIR, 'md', user.email, 'letters')
+        
+        try:
+            # Find the correct letter file
+            letter_name = None
+            for file in letters_path.iterdir():
+                if file.stem.startswith(f'{pk}.'):
+                    letter_name = file
+                    break
+                    
+            if letter_name is None:
+                return redirect(reverse('game:file_letters'))
+                
+            # Read and convert the letter
+            letter_content = letter_name.read_text(encoding='utf-8')
+            html_content = markdowner.convert(letter_content)
+            letter_name = str(letter_name)
+            last_index = letter_name.rindex(str(BASE_DIR))
+            letter_name= letter_name[last_index + len(str(BASE_DIR))+15+len(str(user.email)):-3]
+            context = {
+                'letter': html_content,
+                'letter_title': letter_name
+            }
+            return render(request, 'game/letter.html', context)
+            
+        except (FileNotFoundError, PermissionError) as e:
+            return redirect(reverse('game:file_letters'))
+    def post(self,request,pk):
+        user = request.user
+        letter_name = None
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        letters_path = Path(BASE_DIR, 'md', user.email, 'letters')
+        for file in letters_path.iterdir():
+            if file.stem.startswith(f'{pk}.'):
+                letter_name = file
+                break
+                    
+        if letter_name is None:
+            return redirect(reverse('game:file_letters'))
+        with open(letter_name , 'a', encoding='utf-8') as file:
+            text = '\n' +'\n'+'---' +'\n' + 'پاسخ شما:' + self.request.POST.get('journal')
+            file.write(text)
+        return redirect(reverse('game:file_letters'))
+
+        
+
              

@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ letter_title }}</title>
+  <link rel="stylesheet" href="{% static 'css/letter.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .letter-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Basic markdown styling */
+    .letter-content h1 { font-size: 2em; margin-bottom: 1em; }
+    .letter-content h2 { font-size: 1.5em; margin-bottom: 0.8em; }
+    .letter-content p { margin-bottom: 1em; }
+    .letter-content ul, .letter-content ol { margin-left: 2em; margin-bottom: 1em; }
+    .letter-content code { background: #f4f4f4; padding: 2px 4px; }
+    .letter-content pre { background: #f4f4f4; padding: 1em; margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+          <div class="user-area">
+            <div class="user-avatar">
+              <span>TU</span>
+            </div>
+            <div class="xp-display">
+              <div class="xp-points">850 امتیاز</div>
+              <div class="rank-icon trophy">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                  <path d="M4 22h16"></path>
+                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                  <path d="M9 2v7.5"></path>
+                  <path d="M15 2v7.5"></path>
+                  <path d="M12 2v10"></path>
+                  <path d="M12 12a5 5 0 0 0 5-5H7a5 5 0 0 0 5 5Z"></path>
+                </svg>
+              </div>
+            </div>
+            
+          </div>
+          <nav class="nav-links">
+            <a href="/" class="nav-link active">نامه ها</a>
+            <a href="/achievements.html" class="nav-link">یادداشت ها</a>
+            <a href="/profile.html" class="nav-link">پروفایل</a>
+          </nav>
+          <a href="/" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="zistkav-logo" width="90" height="57.7" style="margin-top:8px ;">
+          </a>
+          
+        </div>
+      </header>
+  
+  <main class="fullscreen">
+    <div class="container">
+      <h1 style="padding-top: 30px;">{{letter_title}}</h1>
+      <p class="subtitle" style="text-align: center;">نامه جدید از زیستیار دارید</p>
+      
+      <div class="letter-container">
+        <div class="letter-content-container">
+          <!-- Preview Section (Now on top) -->
+          <div class="letter-preview-wrapper">
+            <h2 style="font-family: 'shabnam';"></h2>
+            <div class="letter-preview">
+              <div class="letter-header">
+                <p  id="date-display" class="letter-date" style="line-height: 3;">
+                    {{ letter|safe }}
+                </p>
+                <h3 id="title-display" class="letter-title"></h3>
+              </div>
+              
+              <div class="letter-body">
+                <p id="content-display"></p>
+              </div>
+            </div>
+
+          </div>
+          
+          <!-- Writing Section (Now below) -->
+          <div class="letter-editor" style="padding-top: 50px;">
+            <h2>پاسخ خود را بنوسید</h2>
+            <div class="letter-form">
+                <form method="post"> 
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea id="letter-content" placeholder="نامه ی خود را وارد" name="journal" style="height: 250px; text-align: right;"></textarea>
+                    </div>
+              
+                    <div class="form-actions">
+                        <button id="preview-button" class="btn" style="height: 45px; font-size:19px ;">ارسال نامه</button>
+                    </div>
+                </form>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>طراحی شده توسط تیم زیستکاو</p>
+  </footer>
+
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current date
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('date-display').textContent = today.toLocaleDateString('en-US', options);
+      
+      // Preview button functionality
+      document.getElementById('preview-button').addEventListener('click', function() {
+        const title = document.getElementById('letter-title').value;
+        const content = document.getElementById('letter-content').value;
+        
+        // Display values in preview
+        document.getElementById('title-display').textContent = title;
+        document.getElementById('content-display').textContent = content;
+      });
+      
+      // Clear button functionality
+      document.getElementById('clear-button').addEventListener('click', function() {
+        document.getElementById('letter-title').value = '';
+        document.getElementById('letter-content').value = '';
+        document.getElementById('title-display').textContent = '';
+        document.getElementById('content-display').textContent = '';
+      });
+      
+      // Print button functionality
+      document.getElementById('print-button').addEventListener('click', function() {
+        window.print();
+      });
+      
+      // Save as PDF functionality
+      document.getElementById('save-button').addEventListener('click', function() {
+        alert('To save as PDF, please use your browser\'s print functionality and select "Save as PDF".');
+        window.print();
+      });
+    });
+  </script> -->
+</body>
+</html>

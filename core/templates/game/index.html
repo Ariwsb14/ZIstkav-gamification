@@ -70,7 +70,7 @@
           <div class="level-number">{{ forloop.counter }}</div>
           <h3>{{ letter }}</h3>
           <p>خوانده شده</p>
-          <button class="btn">بازبینی</button>
+          <a href="{% url 'game:file_single_letter' pk=forloop.counter %}"><button class="btn">بازبینی</button></a>
         </div>
         {% endfor %}
         

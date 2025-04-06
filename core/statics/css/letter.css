@@ -1,0 +1,459 @@
+/* Base Styles */
+:root {
+    --primary: #9b4433;
+    --primary-light: rgba(155, 68, 51, 0.8);
+    --primary-lighter: rgba(155, 68, 51, 0.1);
+    --secondary: #ece0c6;
+    --secondary-dark: #e5d6b8;
+    --text-primary: #9b4433;
+    --text-secondary: rgba(155, 68, 51, 0.7);
+    --text-muted: rgba(155, 68, 51, 0.5);
+    --border-color: rgba(155, 68, 51, 0.1);
+    --white: #ffffff;
+    --radius: 0.8rem;
+  }
+  @font-face {
+    font-family: 'shabnam-bold';
+    src: url(../fonts/Shabnam-Bold.ttf);
+    font-style: normal;
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'shabnam';
+    src: url(../fonts/Shabnam.ttf);
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'shabnam-medium';
+    src: url(../fonts/Shabnam-Medium.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'shabnam-light';
+    src: url(../fonts/Shabnam-Light.ttf);
+    font-style: normal;
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: 'shabnam-thin';
+    src: url(../fonts/Shabnam-Thin.ttf);
+    font-style: normal;
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: 'shabnam-digits';
+    src: url(../fonts/digits/Shabnam-Medium-FD.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'shabnam';
+    background-color: var(--white);
+    color: var(--text-primary);
+    line-height: 1.5;
+    text-align: right;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  h1, h2, h3, h4 {
+    font-family: 'shabnam-medium';
+    line-height: 1.2;
+  }
+  
+  h1 {
+    font-family: 'shabnam-bold';
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    font-family: 'shabnam';
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  a {
+    font-family: 'shabnam-medium';
+    font-size: 17px;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .btn-large {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Navbar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    z-index: 50;
+    padding: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .logo-text {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .user-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .xp-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .xp-points {
+    font-family: 'shabnam-digits';
+    padding: 0.25rem 0.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .rank-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+}
+  
+.user-avatar {
+    height: 2.25rem;
+    width: 2.25rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+  
+/* Main Content */
+main {
+  width: 100%;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Letter Container */
+.letter-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.letter-content-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.letter-form-container,
+.letter-preview-container {
+  width: 100%;
+  background-color: var(--white);
+  border: 10px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0rem;
+  margin: 1rem;
+}
+
+/* Form Styles */
+.form-group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid gray;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+#preview-button {
+  width: 100%;
+  height: 45px;
+  font-size: 19px;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#preview-button:hover {
+  background-color: var(--primary-light);
+}
+
+/* Letter Preview Styles */
+.letter-preview {
+  width: 100%;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 2rem;
+  min-height: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.letter-header {
+  margin-bottom: 2rem;
+}
+
+.letter-date {
+  margin-bottom: 1.5rem;
+}
+
+.letter-recipient {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.letter-subject {
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.letter-body {
+  white-space: pre-line;
+  margin-bottom: 2rem;
+}
+
+.letter-footer {
+  white-space: pre-line;
+}
+
+.letter-sender {
+  font-weight: 500;
+}
+
+.preview-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Print Styles */
+@media print {
+  .navbar, footer, .letter-form-container, .preview-actions {
+    display: none;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  main {
+    padding: 0;
+  }
+  
+  h1, .subtitle {
+    display: none;
+  }
+  
+  .letter-preview-container {
+    border: none;
+    padding: 0;
+  }
+  
+  .letter-preview {
+    border: none;
+    padding: 2cm;
+  }
+  
+  .letter-container {
+    gap: 0;
+    width: 100%;
+  }
+  
+  h2 {
+    display: none;
+  }
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-link {
+    position: relative;
+    padding: 0.5rem;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 768px) {
+  .letter-container {
+    flex-direction: row;
+  }
+  
+  .letter-form-container,
+  .letter-preview-container {
+    width: 50%;
+  }
+}
