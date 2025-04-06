@@ -9,14 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  {% include 'game/messages.html' %}
   <header class="navbar">
     <div class="container">
       <div class="user-area">
         <div class="user-avatar">
-          <span>TU</span>
+          <span>{{avatar}}</span>
         </div>
         <div class="xp-display">
-          <div class="xp-points">850 امتیاز</div>
+          <div class="xp-points">{{xp}} امتیاز</div>
           <div class="rank-icon trophy">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>

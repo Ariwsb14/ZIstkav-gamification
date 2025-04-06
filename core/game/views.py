@@ -6,6 +6,8 @@ from django.urls import reverse
 import os
 from pathlib import Path
 from markdown2 import Markdown
+from accounts.models import Profile
+from django.contrib import messages
 # Create your views here.
 
 class LettersView(View,LoginRequiredMixin):
@@ -133,13 +135,23 @@ class FileLettersView(View):
         user = request.user
         if not user.is_authenticated:
             return redirect(reverse('accounts:login'))
+        user_profile = Profile.objects.get(user=user)
+        user_xp = user_profile.xp
+        user_rank = user_profile.rank
+        str_email = str(user.email)
+        avatar = str_email[0].capitalize 
         letters_path = Path(BASE_DIR,'md', user.email,'letters')
         letters_count = len([f for f in os.listdir(letters_path) if os.path.isfile(os.path.join(letters_path, f))])
         letters = os.listdir(letters_path)
         for i in range(len(letters)):
             letters[i] = letters[i][2:-3]
 
-        context = {'letters_count':letters_count , 'letters':letters}
+        context = {'letters_count':letters_count ,
+                    'letters':letters,
+                    'xp':user_xp,
+                    'rank':user_rank,
+                    'avatar':avatar
+                    }
         return render(request, 'game/index.html', context)
 
 class FileSingleLetterView(View):
@@ -147,6 +159,11 @@ class FileSingleLetterView(View):
         user = request.user
         if not user.is_authenticated:
             return redirect(reverse('accounts:login'))
+        user_profile = Profile.objects.get(user=user)
+        user_xp = user_profile.xp
+        user_rank = user_profile.rank
+        str_email = str(user.email)
+        avatar = str_email[0].capitalize
             
         markdowner = Markdown(extras=[
             'fenced-code-blocks',
@@ -179,14 +196,21 @@ class FileSingleLetterView(View):
             letter_name= letter_name[last_index + len(str(BASE_DIR))+15+len(str(user.email)):-3]
             context = {
                 'letter': html_content,
-                'letter_title': letter_name
+                'letter_title': letter_name,
+                'xp':user_xp,
+                'rank':user_rank,
+                'avatar':avatar
             }
             return render(request, 'game/letter.html', context)
             
         except (FileNotFoundError, PermissionError) as e:
+            messages.error(request,'نامه مورد نظر پیدا نشد')
             return redirect(reverse('game:file_letters'))
     def post(self,request,pk):
         user = request.user
+        user_profile = Profile.objects.get(user=user)
+        user_profile.xp +=200
+        user_profile.save()
         letter_name = None
         BASE_DIR = Path(__file__).resolve().parent.parent
         letters_path = Path(BASE_DIR, 'md', user.email, 'letters')
@@ -200,6 +224,7 @@ class FileSingleLetterView(View):
         with open(letter_name , 'a', encoding='utf-8') as file:
             text = '\n' +'\n'+'---' +'\n' + 'پاسخ شما:' + self.request.POST.get('journal')
             file.write(text)
+        messages.success(request, 'پاسخ شما با موفقیت ثبت شد')
         return redirect(reverse('game:file_letters'))
 
         
