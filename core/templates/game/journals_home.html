@@ -36,7 +36,7 @@
       </div>
       <nav class="nav-links">
         <a href="/" class="nav-link active">نامه ها</a>
-        <a href="{% url 'game:file_journals' %}" class="nav-link">یادداشت ها</a>
+        <a href="/achievements.html" class="nav-link">یادداشت ها</a>
         <a href="/profile.html" class="nav-link">پروفایل</a>
       </nav>
       <a href="/" class="logo">
@@ -48,7 +48,7 @@
   
   <main>
     <section class="hero-section">
-      <h1 class="first-page-title">نامه  ها ی زیستیار</h1>
+      <h1 class="first-page-title"> یادداشت های زیستیار</h1>
       <p class="subtitle">به جهان زیستکاوی خود خوش آمدید</p>
       
       <div class="progress-indicator">
@@ -71,7 +71,7 @@
           <div class="level-number">{{ forloop.counter }}</div>
           <h3>{{ letter }}</h3>
           <p>خوانده شده</p>
-          <a href="{% url 'game:file_single_letter' pk=forloop.counter %}"><button class="btn">بازبینی</button></a>
+          <a href="{% url 'game:file_single_journal' pk=forloop.counter %}"><button class="btn">بازبینی</button></a>
         </div>
         {% endfor %}
         

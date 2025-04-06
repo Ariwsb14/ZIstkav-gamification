@@ -227,6 +227,82 @@ class FileSingleLetterView(View):
         messages.success(request, 'پاسخ شما با موفقیت ثبت شد')
         return redirect(reverse('game:file_letters'))
 
+class FileJournalsView(View):
+    def get(self,request):
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        user = request.user
+        if not user.is_authenticated:
+            return redirect(reverse('accounts:login'))
+        user_profile = Profile.objects.get(user=user)
+        user_xp = user_profile.xp
+        user_rank = user_profile.rank
+        str_email = str(user.email)
+        avatar = str_email[0].capitalize 
+        journals_path = Path(BASE_DIR,'md', user.email,'journals')
+        journals_count = len([f for f in os.listdir(journals_path) if os.path.isfile(os.path.join(journals_path, f))])
+        journals = os.listdir(journals_path)
+        for i in range(len(journals)):
+            journals[i] = journals[i][2:-3]
+
+        context = {'letters_count':journals_count ,
+                    'letters':journals,
+                    'xp':user_xp,
+                    'rank':user_rank,
+                    'avatar':avatar
+                    }
+        return render(request, 'game/journals_home.html', context)
+
+class FileSingleJOurnalView(View):
+    def get(self, request, pk):
+        user = request.user
+        if not user.is_authenticated:
+            return redirect(reverse('accounts:login'))
+        user_profile = Profile.objects.get(user=user)
+        user_xp = user_profile.xp
+        user_rank = user_profile.rank
+        str_email = str(user.email)
+        avatar = str_email[0].capitalize
+            
+        markdowner = Markdown(extras=[
+            'fenced-code-blocks',
+            'tables',
+            'header-ids',
+            'break-on-newline',
+            'task_list',
+            'footnotes'
+        ])
         
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        journals_path = Path(BASE_DIR, 'md', user.email, 'journals')
+        
+        try:
+            # Find the correct letter file
+            journal_name = None
+            for file in journals_path.iterdir():
+                if file.stem.startswith(f'{pk}.'):
+                    journal_name = file
+                    break
+                    
+            if journal_name is None:
+                return redirect(reverse('game:file_journals'))
+                
+            # Read and convert the letter
+            journal_content = journal_name.read_text(encoding='utf-8')
+            html_content = markdowner.convert(journal_content)
+            journal_name = str(journal_name)
+            last_index = journal_name.rindex(str(BASE_DIR))
+            journal_name= journal_name[last_index + len(str(BASE_DIR))+16+len(str(user.email)):-3]
+            context = {
+                'letter': html_content,
+                'letter_title': journal_name,
+                'xp':user_xp,
+                'rank':user_rank,
+                'avatar':avatar
+            }
+            return render(request, 'game/letter.html', context)
+            
+        except (FileNotFoundError, PermissionError) as e:
+            messages.error(request,'نامه مورد نظر پیدا نشد')
+            return redirect(reverse('game:file_journals'))
 
              
