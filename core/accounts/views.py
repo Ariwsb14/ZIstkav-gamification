@@ -23,6 +23,7 @@ class CreateUserView(View):
         passwordConf = self.request.POST.get('password2')
         if password == passwordConf :
             user = User.objects.create_user(email=email, password=password)
+            login(request,user)
             return redirect('/')
         return render(request, self.template_name)
 

@@ -9,7 +9,7 @@ from markdown2 import Markdown
 from accounts.models import Profile
 from django.contrib import messages
 # Create your views here.
-
+'''
 class LettersView(View,LoginRequiredMixin):
     template_name = 'game/letters.html'
     
@@ -128,7 +128,7 @@ class SingleJournalView(View):
         file.writelines(lines)
         file.close()
         return redirect(reverse('game:letters'))
-
+'''
 class FileLettersView(View):
     def get(self,request):
         BASE_DIR = Path(__file__).resolve().parent.parent
@@ -145,12 +145,13 @@ class FileLettersView(View):
         letters = os.listdir(letters_path)
         for i in range(len(letters)):
             letters[i] = letters[i][2:-3]
-
+        xp_percent = int(user_xp) / 100
         context = {'letters_count':letters_count ,
                     'letters':letters,
                     'xp':user_xp,
                     'rank':user_rank,
-                    'avatar':avatar
+                    'avatar':avatar,
+                    'xp_percent':xp_percent
                     }
         return render(request, 'game/index.html', context)
 
@@ -171,7 +172,7 @@ class FileSingleLetterView(View):
             'header-ids',
             'break-on-newline',
             'task_list',
-            'footnotes'
+            'footnotes',
         ])
         
         BASE_DIR = Path(__file__).resolve().parent.parent
@@ -299,10 +300,29 @@ class FileSingleJOurnalView(View):
                 'rank':user_rank,
                 'avatar':avatar
             }
+            
             return render(request, 'game/letter.html', context)
             
         except (FileNotFoundError, PermissionError) as e:
             messages.error(request,'نامه مورد نظر پیدا نشد')
             return redirect(reverse('game:file_journals'))
+    def post(self,request,pk):
+        user = request.user
+        user_profile = Profile.objects.get(user=user)
+        user_profile.xp +=200
+        user_profile.save()
+        journal_name = None
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        journals_path = Path(BASE_DIR, 'md', user.email, 'journals')
+        for file in journals_path.iterdir():
+            if file.stem.startswith(f'{pk}.'):
+                journal_name = file
+                break
+                    
+        if journal_name is None:
+            return redirect(reverse('game:file_journals'))
+        with open(journal_name , 'a', encoding='utf-8') as file:
+            text = '\n' +'\n'+'---' +'\n' + 'پاسخ شما:' + self.request.POST.get('journal')
+            file.write(text)
+        return redirect(reverse('game:file_journals'))
 
-             

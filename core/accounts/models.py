@@ -82,13 +82,13 @@ class Profile(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE , null=True, blank=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE , null=True, blank=True)
     ranks = (
-        ('bronze', 'Bronze'),
-        ('silver', 'Silver'),
-        ('gold', 'Gold'),
-        ('platinum', 'Platinum'),
-        ('diamond', 'Diamond'),
+        ('خاموشی', 'خاموشی'),
+        ('ادراک', 'ادراک'),
+        ('چالشگر', 'چالشگر'),
+        ('همنشین', 'همنشین'),
+        ('ادغامیافته', 'ادغامیافته'),
     )
-    rank = models.CharField(default = ranks[0] , max_length=255, choices=ranks)
+    rank = models.CharField(default = ranks[0][0] , max_length=255, choices=ranks)
     xp = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

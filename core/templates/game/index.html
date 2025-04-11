@@ -1,15 +1,27 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LevelUp - Learning Roadmap</title>
+  <title>زیستجهان</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   {% include 'game/messages.html' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const notificationBar = document.getElementById('notificationBar');
+      if (notificationBar) {
+        notificationBar.classList.add('show');
+        setTimeout(() => {
+          notificationBar.classList.remove('show');
+        }, 5000); // Hide after 5 seconds
+      }
+    });
+  </script>
   <header class="navbar">
     <div class="container">
       <div class="user-area">
@@ -34,10 +46,17 @@
         </div>
         
       </div>
+      <div class="mobile-menu-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
       <nav class="nav-links">
         <a href="/" class="nav-link active">نامه ها</a>
-        <a href="{% url 'game:file_journals' %}" class="nav-link">یادداشت ها</a>
-        <a href="/profile.html" class="nav-link">پروفایل</a>
+        <a href="{% url 'game:file_journals' %}" class="nav-link">تمرین ها</a>
+        <a href="/profile.html" class="nav-link">دفترچه ی زیستکاوی</a>
       </nav>
       <a href="/" class="logo">
         <img src="{% static 'images/logo.png' %}" alt="zistkav-logo" width="90" height="57.7" style="margin-top:8px ;">
@@ -45,6 +64,25 @@
       
     </div>
   </header>
+    <!-- Mobile Navigation Panel -->
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <div class="close-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+      </div>
+      <nav class="mobile-nav-links">
+        <a href="/" class="mobile-nav-link active">نامه ها</a>
+        <a href="{% url 'game:file_journals' %}" class="mobile-nav-link">تمرین ها</a>
+        <a href="" class="mobile-nav-link">دفترچه زیستکاوی</a>
+      </nav>
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
   
   <main>
     <section class="hero-section">
@@ -99,19 +137,19 @@
           </div>
           
           <div>
-            <h3>چالشگر</h3>
+            <h3>{{rank}}</h3>
             <p class="xp-rank">{{xp}} امتیاز کلی</p>
           </div>
         </div>
         <div class="next-rank">
           <div class="progress-info">
             <span>توسعه تا همنشین</span>
-            <span class="xp-rank">30%</span>
+            <span class="xp-rank">{{xp_percent}}%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: 30%"></div>
+            <div class="progress-fill" style="width: {{xp_percent}}%; "></div>
           </div>
-          <p class="xp-info">850 / 2000 XP</p>
+          <p class="xp-info">{{xp}} / 10000 XP</p>
         </div>
       </div>
       
@@ -213,5 +251,39 @@
   <footer>
     <p>طراحی شده توسط تیم زیستکاو</p>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const closeMenu = document.querySelector('.close-menu');
+      const mobileNavPanel = document.querySelector('.mobile-nav-panel');
+      const menuOverlay = document.querySelector('.menu-overlay');
+      
+      // Open menu
+      mobileMenuToggle.addEventListener('click', function() {
+        mobileNavPanel.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.classList.add('menu-open');
+      });
+      
+      // Close menu function
+      function closeMenuHandler() {
+        mobileNavPanel.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      }
+      
+      // Close on X button click
+      closeMenu.addEventListener('click', closeMenuHandler);
+      
+      // Close on overlay click
+      menuOverlay.addEventListener('click', closeMenuHandler);
+      
+      // Close when clicking a link
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', closeMenuHandler);
+      });
+    });
+  </script>
 </body>
 </html>
