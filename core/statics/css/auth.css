@@ -1,0 +1,417 @@
+/* Auth Pages Styles */
+:root {
+    --primary: #9b4433;
+    --primary-light: rgba(155, 68, 51, 0.8);
+    --primary-lighter: rgba(155, 68, 51, 0.1);
+    --secondary: #ece0c6;
+    --secondary-dark: #e5d6b8;
+    --secondary-lighter: rgba(236, 224, 198, 0.5);
+    --text-primary: #9b4433;
+    --text-secondary: rgba(155, 68, 51, 0.7);
+    --text-muted: rgba(155, 68, 51, 0.5);
+    --border-color: rgba(155, 68, 51, 0.2);
+    --white: #ffffff;
+    --radius: 0.8rem;
+  }
+  @font-face {
+    font-family: 'shabnam-bold';
+    src: url(../fonts/Shabnam-Bold.ttf);
+    font-style: normal;
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'shabnam';
+    src: url(../fonts/Shabnam.ttf);
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'shabnam-medium';
+    src: url(../fonts/Shabnam-Medium.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'shabnam-light';
+    src: url(../fonts/Shabnam-Light.ttf);
+    font-style: normal;
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: 'shabnam-thin';
+    src: url(../fonts/Shabnam-Thin.ttf);
+    font-style: normal;
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: 'shabnam-digits';
+    src: url(../fonts/digits/Shabnam-Medium-FD.ttf);
+    font-style: normal;
+    font-weight: 500;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'shabnam-medium'
+  }
+  
+  body {
+    font-family: 'shabnam-medium';
+    background-color: var(--secondary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  h1, h2, h3, h4 {
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--primary);
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: var(--primary-light);
+  }
+  
+  /* Navbar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    z-index: 50;
+    padding: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .logo-text {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .user-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .xp-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .xp-points {
+    font-family: 'shabnam-digits';
+    padding: 0.25rem 0.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .rank-icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+  }
+  
+  .user-avatar {
+    height: 2.25rem;
+    width: 2.25rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  @media (min-width: 640px) {
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      position: relative;
+      padding: 0.5rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+  }  
+  /* Main Content */
+  main {
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Auth Container */
+  .auth-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .auth-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .auth-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+  
+  .auth-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  
+  /* Form Styles */
+  .auth-form {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+    text-align:right;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-lighter);
+  }
+  
+  .form-action {
+    margin-top: 2rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+  }
+  
+  .auth-footer a {
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  .auth-footer a:hover {
+    color: var(--primary-light);
+  }
+  
+  .error-message {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .auth-card {
+      padding: 1.5rem;
+    }
+    
+    .auth-title {
+      font-size: 1.5rem;
+    }
+  }
+    /* Media Queries */
+@media (min-width: 640px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+  
+  .mobile-nav-panel {
+    display: none;
+  }
+  
+  .menu-overlay {
+    display: none;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-link {
+    position: relative;
+    padding: 0.5rem;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    transform: scaleX(1);
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .btn {
+    width: auto;
+  }
+}
+  

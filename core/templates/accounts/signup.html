@@ -1,160 +1,200 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Design by foolishdeveloper.com -->
-    <title>Glassmorphism login Form Tutorial in html css</title>
- 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <!--Stylesheet-->
-    <style media="screen">
-      *,
-*:before,
-*:after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body{
-    background-color: #080710;
-}
-.background{
-    width: 430px;
-    height: 520px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    left: 50%;
-    top: 50%;
-}
-.background .shape{
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    border-radius: 50%;
-}
-.shape:first-child{
-    background: linear-gradient(
-        #1845ad,
-        #23a2f6
-    );
-    left: -80px;
-    top: -80px;
-}
-.shape:last-child{
-    background: linear-gradient(
-        to right,
-        #ff512f,
-        #f09819
-    );
-    right: -30px;
-    bottom: -80px;
-}
-form{
-    height: 620px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
-}
-form *{
-    font-family: 'Poppins',sans-serif;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
-}
-form h3{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
-    text-align: center;
-}
-
-label{
-    display: block;
-    margin-top: 30px;
-    font-size: 16px;
-    font-weight: 500;
-}
-input{
-    display: block;
-    height: 50px;
-    width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    padding: 0 10px;
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 300;
-}
-::placeholder{
-    color: #e5e5e5;
-}
-button{
-    margin-top: 50px;
-    width: 100%;
-    background-color: #ffffff;
-    color: #080710;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.social{
-  margin-top: 30px;
-  display: flex;
-}
-.social div{
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255,255,255,0.27);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover{
-  background-color: rgba(255,255,255,0.47);
-}
-.social .fb{
-  margin-left: 25px;
-}
-.social i{
-  margin-right: 4px;
-}
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LevelUp - Sign Up</title>
+  <!-- <link rel="stylesheet" href="../css/style.css"> -->
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div> 
-        <div class="shape"></div>
-    </div>
-    <form method="post">
-        {% csrf_token %}
-        <h3>Register now</h3>
-
-        <label for="email">email</label>
-        <input type="text" name="email" placeholder="Email or Phone" id="username">
-
-        <label for="password">Password</label>
-        <input type="password" name="password1" placeholder="Password" id="password">
-        <label for="password">confirm your password</label>
-        <input type="password" name="password2" placeholder="Password confirmation" id="password">
-        </br>
-        <h6>already have an account?</h6><a href="/accounts/login/" style="font-size: small;">login</a>
-        <button>Register</button>
+  <header class="navbar">
+    <div class="container">
+      <div class="user-area">
+        <div class="user-avatar">
+          <span>{{avatar}}</span>
+        </div>
+        <div class="xp-display">
+          <div class="xp-points">{{xp}} امتیاز</div>
+          <div class="rank-icon trophy">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M9 2v7.5"></path>
+              <path d="M15 2v7.5"></path>
+              <path d="M12 2v10"></path>
+              <path d="M12 12a5 5 0 0 0 5-5H7a5 5 0 0 0 5 5Z"></path>
+            </svg>
+          </div>
+        </div>
         
-    </form>
+      </div>
+      <div class="mobile-menu-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">نامه ها</a>
+        <a href="{% url 'game:file_journals' %}" class="nav-link">تمرین ها</a>
+        <a href="/profile.html" class="nav-link">دفترچه ی زیستکاوی</a>
+      </nav>
+      <a href="/" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="zistkav-logo" width="90" height="57.7" style="margin-top:8px ;">
+      </a>
+      
+    </div>
+  </header>
+      <!-- Mobile Navigation Panel -->
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <div class="close-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+      </div>
+      <nav class="mobile-nav-links">
+        <a href="/" class="mobile-nav-link active">نامه ها</a>
+        <a href="{% url 'game:file_journals' %}" class="mobile-nav-link">تمرین ها</a>
+        <a href="" class="mobile-nav-link">دفترچه زیستکاوی</a>
+      </nav>
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+  <main>
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-header">
+            <h2 class="auth-title">ایجاد حساب کاربری</h2>
+            <p class="auth-subtitle">زیستکاوی در زیستجهانتان را شروع کنید</p>
+          </div>
+          
+          <form id="signup-form" class="auth-form">
+            <div class="form-group">
+              <label for="email">ایمیل</label>
+              <input type="email" id="email" name="email" required>
+              <div class="error-message" id="email-error"></div>
+            </div>
+            
+            <div class="form-group">
+              <label for="password">رمز عبور</label>
+              <input type="password" id="password" name="password" required>
+              <div class="error-message" id="password-error"></div>
+            </div>
+            
+            <div class="form-group">
+              <label for="confirm-password">تایید رمز عبور</label>
+              <input type="password" id="confirm-password" name="password2" required>
+              <div class="error-message" id="confirm-password-error"></div>
+            </div>
+            
+            <div class="form-action">
+              <button type="submit" class="btn">ایجاد حساب کاربری</button>
+            </div>
+          </form>
+          
+          <div class="auth-footer">
+            <p>حساب کاربری دارید؟ <a href="login.html">ورود</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>طراحی شده توسط تیم زیستکاو</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const signupForm = document.getElementById('signup-form');
+      const fullnameInput = document.getElementById('fullname');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      
+      const fullnameError = document.getElementById('fullname-error');
+      const emailError = document.getElementById('email-error');
+      const passwordError = document.getElementById('password-error');
+      const confirmPasswordError = document.getElementById('confirm-password-error');
+      
+      // Simple validation
+      signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let isValid = true;
+        
+        // Reset errors
+        fullnameError.style.display = 'none';
+        emailError.style.display = 'none';
+        passwordError.style.display = 'none';
+        confirmPasswordError.style.display = 'none';
+        
+        // Full name validation
+        if (!fullnameInput.value.trim()) {
+          fullnameError.textContent = 'Full name is required';
+          fullnameError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Email validation
+        if (!emailInput.value.trim()) {
+          emailError.textContent = 'Email is required';
+          emailError.style.display = 'block';
+          isValid = false;
+        } else if (!isValidEmail(emailInput.value)) {
+          emailError.textContent = 'Please enter a valid email';
+          emailError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Password validation
+        if (!passwordInput.value) {
+          passwordError.textContent = 'Password is required';
+          passwordError.style.display = 'block';
+          isValid = false;
+        } else if (passwordInput.value.length < 6) {
+          passwordError.textContent = 'Password must be at least 6 characters';
+          passwordError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Confirm password validation
+        if (!confirmPasswordInput.value) {
+          confirmPasswordError.textContent = 'Please confirm your password';
+          confirmPasswordError.style.display = 'block';
+          isValid = false;
+        } else if (passwordInput.value !== confirmPasswordInput.value) {
+          confirmPasswordError.textContent = 'Passwords do not match';
+          confirmPasswordError.style.display = 'block';
+          isValid = false;
+        }
+        
+        if (isValid) {
+          // Here you would typically send the data to a server
+          // For now, just simulate a successful registration
+          alert('Account created successfully! Redirecting to login page...');
+          
+          // In a real application, you'd redirect to the login page or home page
+          // window.location.href = 'login.html';
+        }
+      });
+      
+      function isValidEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }
+    });
+  </script>
 </body>
 </html>

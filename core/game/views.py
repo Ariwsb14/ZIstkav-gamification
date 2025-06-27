@@ -8,6 +8,7 @@ from pathlib import Path
 from markdown2 import Markdown
 from accounts.models import Profile
 from django.contrib import messages
+from .models import Answers
 # Create your views here.
 '''
 class LettersView(View,LoginRequiredMixin):
@@ -225,6 +226,9 @@ class FileSingleLetterView(View):
         with open(letter_name , 'a', encoding='utf-8') as file:
             text = '\n' +'\n'+'---' +'\n' + 'پاسخ شما:' + self.request.POST.get('journal')
             file.write(text)
+        answer = Answers(user = user_profile , path = f'{str(letter_name)[48:]}' ,
+                         content = self.request.POST.get('journal'))
+        answer.save()
         messages.success(request, 'پاسخ شما با موفقیت ثبت شد')
         return redirect(reverse('game:file_letters'))
 
@@ -324,5 +328,8 @@ class FileSingleJOurnalView(View):
         with open(journal_name , 'a', encoding='utf-8') as file:
             text = '\n' +'\n'+'---' +'\n' + 'پاسخ شما:' + self.request.POST.get('journal')
             file.write(text)
+        answer = Answers(user = user_profile , path =f'{str(journal_name)[48:]}',
+                         content = self.request.POST.get('journal'))
+        answer.save()
         return redirect(reverse('game:file_journals'))
 
